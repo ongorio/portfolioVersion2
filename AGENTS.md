@@ -22,7 +22,15 @@ Project guidance for AI agents working in this repository.
 
 ## Styling and UI Conventions
 - Reuse existing section utility classes in `src/app/globals.css` (`section-shell`, `section-title`, `section-kicker`).
-- Preserve the established palette from `docs/color_palet.txt`.
+- Use the current palette from `src/app/globals.css`:
+  - `--background`: `#f8f8f8`
+  - `--surface`: `#0d2818`
+  - `--surface-2`: `#04471c`
+  - `--accent`: `#16db65`
+  - `--accent-2`: `#058c42`
+  - `--foreground`: `#020202`
+  - `--muted`: `#a9b8b0`
+- For text, background, and border colors, use project color variables/tokens first (`var(--*)` or Tailwind theme tokens like `text-foreground`, `bg-surface-2/15`, `border-accent/20`) before introducing hardcoded hex values.
 - Keep components accessible:
   - visible text labels for links/buttons
   - decorative icons with `aria-hidden`
@@ -33,7 +41,7 @@ Project guidance for AI agents working in this repository.
 - Sections: `src/components/*`
 - Content model: `src/data/portfolio.ts`
 - Icon registry: `src/lib/icon-map.ts`
-- Reference docs: `docs/color_palet.txt`, `wireframe.txt`
+- Reference docs: `wireframe.txt` (palette source of truth is `src/app/globals.css`)
 
 ## Resume Handling
 - Store resume PDF under `public/resume/`.
@@ -50,7 +58,7 @@ Project guidance for AI agents working in this repository.
 | Add a brand-new icon key | `src/lib/icon-map.ts` (union + map) | `src/data/portfolio.ts` to use the new key |
 | Change section labels/order | `src/data/portfolio.ts` (`navItems`) | Ensure matching section `id` values in components |
 | Add or update resume link | `public/resume/*` + `src/data/portfolio.ts` (`socialLinks`) | Decide view vs download behavior in link rendering |
-| Change palette/theme tone | `src/app/globals.css` | Keep alignment with `docs/color_palet.txt` |
+| Change palette/theme tone | `src/app/globals.css` | Update CSS variables/tokens first; avoid raw hex unless necessary |
 
 ## Common Gotchas
 | Gotcha | Why it happens | How to avoid/fix |
