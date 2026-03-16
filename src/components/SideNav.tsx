@@ -12,8 +12,8 @@ type SideNavProps = {
 export function SideNav({ name, title, navItems }: SideNavProps) {
   return (
     <>
-      <header className="sticky top-0 z-20 border-b border-white/10 bg-[#020202]/95 px-4 py-3 backdrop-blur lg:hidden">
-        <p className="text-sm font-semibold tracking-wide text-[#16DB65]">{name}</p>
+      <header className="sticky top-0 z-20 border-b border-white/10 bg-surface/95 px-4 py-3 backdrop-blur lg:hidden">
+        <p className="text-sm font-semibold tracking-wide text-accent">{name}</p>
         <nav aria-label="Section navigation" className="mt-3 flex gap-2 overflow-x-auto pb-1">
           {navItems.map((item) => (
             <a
@@ -27,7 +27,7 @@ export function SideNav({ name, title, navItems }: SideNavProps) {
         </nav>
       </header>
 
-      <aside className="hidden lg:block lg:sticky lg:top-0 lg:h-screen lg:border-r lg:border-white/10 lg:px-8 lg:py-14">
+      <aside className="hidden lg:block lg:sticky lg:top-0 lg:h-screen lg:border-r lg:border-white/10 lg:px-8 lg:py-14 bg-surface">
         <p className="text-2xl font-bold text-white">{name}</p>
         <p className="mt-1 text-sm text-white/70">{title}</p>
         <nav aria-label="Section navigation" className="mt-12 space-y-4">

@@ -37,6 +37,11 @@ export type EducationItem = {
   period: string;
 };
 
+export type CertificationItem = {
+  name: string;
+  year: string;
+};
+
 export type PortfolioData = {
   name: string;
   title: string;
@@ -47,7 +52,7 @@ export type PortfolioData = {
   experiences: ExperienceItem[];
   projects: ProjectItem[];
   education: EducationItem[];
-  certifications: string[];
+  certifications: CertificationItem[];
   navItems: Array<{ id: string; label: string }>;
 };
 
@@ -75,6 +80,7 @@ export const portfolioData: PortfolioData = {
         { label: "Python", iconKey: "python" },
         { label: "Javascript", iconKey: "javascript" },
         { label: "Postgresql", iconKey: "postgresql" },
+        { label: "Apex", iconKey: "salesforce" },
       ],
     },
     {
@@ -166,18 +172,17 @@ export const portfolioData: PortfolioData = {
     },
   ],
   certifications: [
-    "Salesforce Certified Administrator",
-    "Salesforce Certified Platform Developer I",
-    "Salesforce Certified Platform App Builder",
-    "Salesforce Certified Agentforce Specialist",
-    "Salesforce Certified AI Associate",
-
+    { name: "Salesforce Certified Agentforce Specialist", year: "2025" },
+    { name: "Salesforce Certified Platform Developer I", year: "2025" },
+    { name: "Salesforce Certified AI Associate", year: "2024" },
+    { name: "Salesforce Certified Platform App Builder", year: "2024" },
+    { name: "Salesforce Certified Administrator", year: "2023" },
   ],
   navItems: [
-    { id: "introduction", label: "Introduction" },
+    { id: "about-me", label: "About Me" },
     { id: "experience", label: "Experience" },
     { id: "projects", label: "Projects" },
-    { id: "education", label: "Education" },
-    { id: "contact", label: "Contact" },
+    { id: "education", label: "Certifications" },
+    // { id: "contact", label: "Contact" },
   ],
 };

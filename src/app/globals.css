@@ -1,6 +1,15 @@
 @import "tailwindcss";
 
 :root {
+  --background: #f8f8f8;
+  --surface: #0d2818;
+  --surface-2: #04471c;
+  --accent: #16db65;
+  --accent-2: #058c42;
+  --foreground: #020202;
+  --muted: #a9b8b0;
+}
+/* :root {
   --background: #020202;
   --surface: #0d2818;
   --surface-2: #04471c;
@@ -8,7 +17,7 @@
   --accent-2: #058c42;
   --foreground: #f5f5f5;
   --muted: #a9b8b0;
-}
+} */
 
 @theme inline {
   --color-background: var(--background);
@@ -42,7 +51,7 @@ html {
   font-size: 1.75rem;
   font-weight: 700;
   line-height: 1.2;
-  color: #ffffff;
+  color: var(--surface);
 }
 
 .section-kicker {
