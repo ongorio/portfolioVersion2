@@ -50,7 +50,7 @@ export function ExperienceSection({ experiences }: ExperienceSectionProps) {
                 <div className="w-full p-3.5 md:p-4">
                   <h3 className="text-base font-bold leading-5 text-foreground">{experience.title}</h3>
                   <div className="mt-1.5 flex justify-end text-right text-[0.69rem] font-semibold uppercase tracking-[0.11em] text-accent">
-                    {/* <span>{startDate.primary}</span> */}
+                    <span>{startDate.primary}</span>
                     {startDate.secondary ? (
                       <span className="ml-1 text-[0.63rem] tracking-[0.12em] text-surface-2/70">{startDate.secondary}</span>
                     ) : null}
