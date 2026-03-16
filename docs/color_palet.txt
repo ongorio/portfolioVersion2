@@ -1,0 +1,5 @@
+black #020202
+phthalo green #0D2818
+forest green #04471C
+spanish green #058C42
+malachite #16DB65
