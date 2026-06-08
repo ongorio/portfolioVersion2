@@ -1,4 +1,4 @@
-import type { SkillIconKey, SocialIconKey } from "@/lib/icon-map";
+import type { NavIconKey, SkillIconKey, SocialIconKey } from "@/lib/icon-map";
 
 export type SocialLink = {
   label: string;
@@ -21,6 +21,7 @@ export type ExperienceItem = {
   title: string;
   start: string;
   end: string;
+  body?: string;
 };
 
 export type ProjectItem = {
@@ -29,6 +30,9 @@ export type ProjectItem = {
   techStack: string[];
   visualNote: string;
   projectUrl: string;
+  thumbnailImage?: string;
+  thumbnailImageAlt?: string;
+  thumbnailVariant?: "cleanup-counter" | "funnel";
 };
 
 export type EducationItem = {
@@ -39,11 +43,13 @@ export type EducationItem = {
 
 export type CertificationItem = {
   name: string;
+  org: string;
   year: string;
 };
 
 export type PortfolioData = {
   name: string;
+  initials: string;
   title: string;
   valueProposition: string;
   about: string;
@@ -53,11 +59,12 @@ export type PortfolioData = {
   projects: ProjectItem[];
   education: EducationItem[];
   certifications: CertificationItem[];
-  navItems: Array<{ id: string; label: string }>;
+  navItems: Array<{ id: string; label: string; iconKey: NavIconKey }>;
 };
 
 export const portfolioData: PortfolioData = {
   name: "Isaias Alvarez Vargas",
+  initials: "IAV",
   title: "Salesforce Developer",
   valueProposition:
     "I build reliable, business-focused software solutions that connect Salesforce, backend services, and modern web experiences.",
@@ -148,6 +155,8 @@ export const portfolioData: PortfolioData = {
       techStack: ["Python", "Django", "MySQL"],
       visualNote: "Dashboard and workflow automation preview",
       projectUrl: "#",
+      thumbnailImage: '/images/projects/adminhubenvios.png',
+      thumbnailImageAlt: "ATG Store Suite Dashboard",
     },
     {
       name: "E-Rate Leads",
@@ -155,6 +164,7 @@ export const portfolioData: PortfolioData = {
       techStack: ["Salesforce", "Flows", "Apex"],
       visualNote: "Integration architecture snapshot",
       projectUrl: "#",
+      thumbnailVariant: "funnel",
     },
     {
       name: "Cleanup Process & Data Governance",
@@ -162,6 +172,7 @@ export const portfolioData: PortfolioData = {
       techStack: ["Salesforce", "Scheduled Jobs", "Apex"],
       visualNote: "Integration architecture snapshot",
       projectUrl: "#",
+      thumbnailVariant: "cleanup-counter",
     },
   ],
   education: [
@@ -172,17 +183,18 @@ export const portfolioData: PortfolioData = {
     },
   ],
   certifications: [
-    { name: "Salesforce Certified Agentforce Specialist", year: "2025" },
-    { name: "Salesforce Certified Platform Developer I", year: "2025" },
-    { name: "Salesforce Certified AI Associate", year: "2024" },
-    { name: "Salesforce Certified Platform App Builder", year: "2024" },
-    { name: "Salesforce Certified Administrator", year: "2023" },
+    { name: "Salesforce Certified Platform Developer II", org: "Salesforce", year: "2026" },
+    { name: "Salesforce Certified Agentforce Specialist", org: "Salesforce", year: "2025" },
+    { name: "Salesforce Certified Platform Developer I", org: "Salesforce", year: "2025" },
+    { name: "Salesforce Certified AI Associate", org: "Salesforce", year: "2024" },
+    { name: "Salesforce Certified Platform App Builder", org: "Salesforce", year: "2024" },
+    { name: "Salesforce Certified Administrator", org: "Salesforce", year: "2023" },
   ],
   navItems: [
-    { id: "about-me", label: "About Me" },
-    { id: "experience", label: "Experience" },
-    { id: "projects", label: "Projects" },
-    { id: "education", label: "Certifications" },
-    // { id: "contact", label: "Contact" },
+    { id: "work",           label: "Selected work",  iconKey: "folder"     },
+    { id: "experience",     label: "Experience",     iconKey: "path"       },
+    { id: "certifications", label: "Certifications", iconKey: "sealcheck"  },
+    { id: "about",          label: "About",          iconKey: "user"       },
+    { id: "contact",        label: "Contact",        iconKey: "paperplane" },
   ],
 };

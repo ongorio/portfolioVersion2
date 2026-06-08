@@ -12,6 +12,11 @@ import {
   GithubLogoIcon,
   FileTextIcon,
   LinkedinLogoIcon,
+  FolderSimpleIcon,
+  PathIcon,
+  SealCheckIcon,
+  UserIcon,
+  PaperPlaneTiltIcon,
 } from "@phosphor-icons/react/ssr";
 import type { Icon } from "@phosphor-icons/react";
 
@@ -50,4 +55,14 @@ export const categoryIconMap: Record<string, Icon> = {
   Tools: ToolboxIcon,
   Cloud: CloudIcon,
   Platform: LightningIcon,
+};
+
+export type NavIconKey = "folder" | "path" | "sealcheck" | "user" | "paperplane";
+
+export const navIconMap: Record<NavIconKey, Icon> = {
+  folder: FolderSimpleIcon,
+  path: PathIcon,
+  sealcheck: SealCheckIcon,
+  user: UserIcon,
+  paperplane: PaperPlaneTiltIcon,
 };

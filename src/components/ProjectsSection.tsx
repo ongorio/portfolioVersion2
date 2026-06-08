@@ -1,4 +1,12 @@
+import { ArrowUpRightIcon, FolderSimpleIcon } from "@phosphor-icons/react/ssr";
+import { Badge } from "@/components/ui/Badge";
+import { Card } from "@/components/ui/Card";
+import { SectionHeader } from "@/components/ui/SectionHeader";
+import { IconToken } from "@/components/IconToken";
+import { CleanupCounterThumbnail } from "@/components/ui/CleanupCounterThumbnail";
+import { FunnelThumb } from "@/components/ui/FunnelThumb";
 import type { ProjectItem } from "@/data/portfolio";
+import Image from "next/image";
 
 type ProjectsSectionProps = {
   projects: ProjectItem[];
@@ -6,39 +14,43 @@ type ProjectsSectionProps = {
 
 export function ProjectsSection({ projects }: ProjectsSectionProps) {
   return (
-    <section id="projects" className="section-shell">
-      <h2 className="section-title">Projects</h2>
+    <section id="work" className="section-shell">
+      <SectionHeader kicker="SELECTED WORK" title="Projects" />
 
-      <div className="mt-8 grid gap-5 md:grid-cols-2">
+      <div className="mt-7 grid grid-cols-1 gap-6 md:grid-cols-2">
         {projects.map((project) => (
-          <article
-            key={project.name}
-            className="rounded-xl border border-surface-2/50 bg-surface-2/15 p-5 shadow-[0_0_0_1px_rgba(22,219,101,0.05)]"
-          >
-            <h3 className="text-lg font-semibold text-foreground">{project.name}</h3>
-            <p className="mt-3 text-sm leading-6 text-foreground/80">{project.problemSolved}</p>
-
-            {/* <div className="mt-4 rounded-lg border border-dashed border-surface-2/50 bg-surface-2/15 p-3 text-xs text-foreground/70">
-              Visual: {project.visualNote}
-            </div> */}
-
-            <div className="mt-4 flex flex-wrap gap-2">
-              {project.techStack.map((tech) => (
-                <span key={tech} className="rounded-md border border-surface-2/50 px-2 py-1 text-xs text-foreground/80">
-                  {tech}
-                </span>
-              ))}
+          <Card key={project.name} variant="interactive">
+            <div className="mb-4 flex h-[160px] items-center justify-center overflow-hidden rounded-md border border-dashed border-surface-2/30 bg-surface-2/10">
+              {project.thumbnailVariant === "cleanup-counter" ? (
+                <CleanupCounterThumbnail />
+              ) : project.thumbnailVariant === "funnel" ? (
+                <FunnelThumb />
+              ) : project.thumbnailImage ? (
+                <Image src={project.thumbnailImage} alt={project.thumbnailImageAlt || "Project Thumbnail"} width={600} height={400} className="h-full w-full object-cover object-top" />
+              ) : (
+                <IconToken icon={FolderSimpleIcon} size={24} color="var(--accent-mid)" />
+              )}
             </div>
 
-            {/* <a
-              href={project.projectUrl}
-              target="_blank"
-              rel="noreferrer"
-              className="mt-5 inline-block text-sm font-medium text-[#16DB65] underline-offset-4 transition hover:underline"
-            >
-              View project
-            </a> */}
-          </article>
+            <div className="flex items-center justify-between gap-2">
+              <h3 className="text-[1.125rem] font-semibold text-surface">{project.name}</h3>
+              <ArrowUpRightIcon
+                size={16}
+                className="shrink-0 text-accent-2 transition-colors duration-[var(--duration-default)] group-hover:text-accent"
+                aria-hidden
+              />
+            </div>
+
+            <p className="mb-3.5 mt-2 text-sm leading-6 text-foreground/75">
+              {project.problemSolved}
+            </p>
+
+            <div className="flex flex-wrap gap-2">
+              {project.techStack.map((tech) => (
+                <Badge key={tech} variant="tech" label={tech} />
+              ))}
+            </div>
+          </Card>
         ))}
       </div>
     </section>
