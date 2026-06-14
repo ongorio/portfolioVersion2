@@ -26,7 +26,7 @@ All portfolio content lives in **`src/data/portfolio.ts`** as a single `portfoli
 - **`src/app/page.tsx`** — root page; imports all section components and `SideNav`, passes slices of `portfolioData` as props. Section render order matches nav order: Hero → Projects → Experience → Certifications → About → Contact.
 - **`src/components/ui/`** — shared primitives used across sections:
   - `SectionHeader` — kicker + h2 title pair used by every section
-  - `Button` — `primary | secondary | social` variants; renders `<a>` when `href` is provided, `<button>` otherwise
+  - `Button` — `primary | secondary | social` variants; renders `<a>` when `href` is provided, `<button>` otherwise; accepts `disabled` prop (renders with reduced opacity + `cursor-not-allowed`)
   - `Card` — `standard | elevated | interactive` variants; pass `className` for layout overrides (e.g. flex row in CertificationsSection)
   - `Badge` — `skill` (with icon) or `tech` (label only) variants
 - **`src/components/`** — one file per section plus `SideNav` and `IconToken`
@@ -50,11 +50,24 @@ Tailwind CSS v4 with a custom token layer in **`src/app/globals.css`**:
 
 ### Icons
 
-All icons must be imported from `@phosphor-icons/react/ssr` (SSR-safe) in server components. The `ContactSection` is a client component (`"use client"`) and imports `CheckCircleIcon` from `@phosphor-icons/react` directly. Render icons through `<IconToken>` (wraps the icon with standard defaults) rather than using Phosphor components directly.
+All icons must be imported from `@phosphor-icons/react/ssr` (SSR-safe) in server components. Client components (`SideNav`, `ContactSection`) import directly from `@phosphor-icons/react`. Render icons through `<IconToken>` (wraps the icon with standard defaults) rather than using Phosphor components directly.
 
 ### Client components
 
-Only `SideNav` and `ContactSection` are client components. `SideNav` uses `IntersectionObserver` to track scroll position across section IDs `["work", "experience", "certifications", "about", "contact"]` and highlights the active nav item.
+Only `SideNav` and `ContactSection` are client components.
+
+- `SideNav` — uses `IntersectionObserver` to highlight the active nav item. On mobile (< 1024px) it renders a hamburger toggle button; the menu panel is a `fixed` overlay containing identity, nav links, and social links. Pressing `Escape`, clicking a nav link, or tapping the X button closes it.
+- `ContactSection` — submits form data to the Supabase `clientLeads` table via `src/lib/supabase.ts`. Shows loading/error/success states inline.
+
+### Supabase
+
+`src/lib/supabase.ts` exports a browser Supabase client (`createClient` from `@supabase/supabase-js`) configured via two `NEXT_PUBLIC_` env vars. The contact form inserts into the `clientLeads` table (columns: `first_name`, `last_name`, `email`, `message`) using an anon RLS policy.
+
+Required `.env.local` keys:
+```
+NEXT_PUBLIC_SUPABASE_URL=...
+NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=...
+```
 
 ### Adding a new section
 
@@ -82,6 +95,7 @@ Only `SideNav` and `ContactSection` are client components. `SideNav` uses `Inter
 | Change section labels/order | `src/data/portfolio.ts` (`navItems`) | Matching section `id` and `SECTION_IDS` in `SideNav.tsx` |
 | Add/update resume link | `public/resume/*` + `src/data/portfolio.ts` (`socialLinks`) | Decide view vs. download behaviour in link rendering |
 | Change palette/theme | `src/app/globals.css` | Update CSS variables/tokens first; avoid raw hex |
+| Change contact form destination | `src/components/ContactSection.tsx` (table/column names) | Confirm RLS policy on the new table allows anon insert |
 
 ## Common gotchas
 
@@ -93,6 +107,20 @@ Only `SideNav` and `ContactSection` are client components. `SideNav` uses `Inter
 | Resume link 404s | PDF not under `public/` or wrong path | Place the file in `public/resume/` and use a root-relative URL |
 | Social links drift between sections | Hero and Contact styled separately | Update both `HeroSection` and `ContactSection` together |
 | Lint passes but build fails | Type/runtime issue caught only at build | Run both `npm run lint` and `npm run build` before finishing |
+| Contact form silently fails | Missing or wrong `.env.local` Supabase keys | Check `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` are set; the form shows an error message on insert failure |
+| Mobile menu does not appear | `top-11` overlay assumes 44px header height | If header height changes (font/padding adjustments), update the `top-*` class on the overlay in `SideNav.tsx` |
+
+## Roadmap
+
+Planned work for future sessions, in rough priority order.
+
+| Item | Status | Notes |
+|---|---|---|
+| Re-enable resume link | Pending | `socialLinks` entry in `portfolio.ts` has `href: "#"` as a placeholder while the resume is being finalised. Drop the PDF in `public/resume/resume.pdf` and update the href to `/resume/resume.pdf`. |
+| Project catalog page | Pending | A dedicated `/projects` page (or filtered view) to list all projects without cluttering the main page. Will need a new route under `src/app/projects/`. |
+| Project detail pages | Pending | Per-project detail pages (e.g. `/projects/[slug]`) to display full write-ups, screenshots, and tech breakdowns. When implementing: restore `variant="interactive"` on cards in `ProjectsSection.tsx`, re-add `ArrowUpRightIcon`, and wrap each card in a link to its detail route. Cards are currently `variant="elevated"` with no link. |
+| OpenGraph image | Pending | Add an `og:image` to `layout.tsx` (`openGraph.images`). Place a branded image under `public/` and reference it. `metadataBase` is already set to `https://isvar.me` so a root-relative path will resolve correctly. |
+| Polish Experience section | Pending | Revisit `ExperienceSection.tsx` — layout, typography, and timeline styling need refinement. |
 
 ## Before finishing
 

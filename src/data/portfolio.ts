@@ -51,6 +51,8 @@ export type PortfolioData = {
   name: string;
   initials: string;
   title: string;
+  domain: string;
+  email: string;
   valueProposition: string;
   about: string;
   socialLinks: SocialLink[];
@@ -66,6 +68,8 @@ export const portfolioData: PortfolioData = {
   name: "Isaias Alvarez Vargas",
   initials: "IAV",
   title: "Salesforce Developer",
+  domain: "https://isvar.me",
+  email: "ialvarezv26@gmail.com",
   valueProposition:
     "I build reliable, business-focused software solutions that connect Salesforce, backend services, and modern web experiences.",
     
@@ -78,7 +82,7 @@ export const portfolioData: PortfolioData = {
       href: "https://www.linkedin.com/in/isaias-alvarez-vargas-654935214/",
       iconKey: "linkedin",
     },
-    { label: "Resume", href: "#", iconKey: "resume" },
+    // { label: "Resume", href: "#", iconKey: "resume" },
   ],
   skillGroups: [
     {

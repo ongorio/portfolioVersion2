@@ -1,4 +1,4 @@
-import { ArrowUpRightIcon, FolderSimpleIcon } from "@phosphor-icons/react/ssr";
+import { FolderSimpleIcon } from "@phosphor-icons/react/ssr";
 import { Badge } from "@/components/ui/Badge";
 import { Card } from "@/components/ui/Card";
 import { SectionHeader } from "@/components/ui/SectionHeader";
@@ -19,7 +19,7 @@ export function ProjectsSection({ projects }: ProjectsSectionProps) {
 
       <div className="mt-7 grid grid-cols-1 gap-6 md:grid-cols-2">
         {projects.map((project) => (
-          <Card key={project.name} variant="interactive">
+          <Card key={project.name} variant="elevated">
             <div className="mb-4 flex h-[160px] items-center justify-center overflow-hidden rounded-md border border-dashed border-surface-2/30 bg-surface-2/10">
               {project.thumbnailVariant === "cleanup-counter" ? (
                 <CleanupCounterThumbnail />
@@ -34,11 +34,6 @@ export function ProjectsSection({ projects }: ProjectsSectionProps) {
 
             <div className="flex items-center justify-between gap-2">
               <h3 className="text-[1.125rem] font-semibold text-surface">{project.name}</h3>
-              <ArrowUpRightIcon
-                size={16}
-                className="shrink-0 text-accent-2 transition-colors duration-[var(--duration-default)] group-hover:text-accent"
-                aria-hidden
-              />
             </div>
 
             <p className="mb-3.5 mt-2 text-sm leading-6 text-foreground/75">

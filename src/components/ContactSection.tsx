@@ -5,15 +5,38 @@ import { CheckCircleIcon } from "@phosphor-icons/react";
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
 import { SectionHeader } from "@/components/ui/SectionHeader";
+import { supabase } from "@/lib/supabase";
+import { portfolioData } from "@/data/portfolio";
 
 const inputClass =
   "w-full rounded-md border border-surface-2/30 bg-background px-3 py-2 text-sm text-foreground placeholder:text-muted transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background";
 
 export function ContactSection() {
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    setLoading(true);
+    setError(null);
+
+    const data = new FormData(e.currentTarget);
+
+    const { error: insertError } = await supabase.from("clientLeads").insert({
+      first_name: data.get("firstname") as string,
+      last_name: data.get("lastname") as string,
+      email: data.get("email") as string,
+      message: data.get("message") as string,
+    });
+
+    setLoading(false);
+
+    if (insertError) {
+      setError(insertError.message);
+      return;
+    }
+
     setSubmitted(true);
   }
 
@@ -82,8 +105,18 @@ export function ContactSection() {
                 />
               </label>
 
-              <Button type="submit" variant="primary" className="w-fit">
-                Send message
+              {error && (
+                <p role="alert" className="text-sm text-red-400">
+                  Something went wrong. Please try again or{" "}
+                  <a href={`mailto:${portfolioData.email}`} className="underline hover:text-red-300">
+                    email me directly
+                  </a>
+                  .
+                </p>
+              )}
+
+              <Button type="submit" variant="primary" className="w-fit" disabled={loading}>
+                {loading ? "Sending…" : "Send message"}
               </Button>
             </form>
           </Card>

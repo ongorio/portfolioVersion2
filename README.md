@@ -9,6 +9,7 @@ A single-page personal portfolio with sticky side navigation and responsive sect
 - **TypeScript 5**
 - **Tailwind CSS v4** (token-based theme layer in `globals.css`)
 - **Phosphor Icons v2** (SSR-safe imports)
+- **Supabase** (contact form — `@supabase/supabase-js`)
 
 ## Run Locally
 
@@ -18,6 +19,17 @@ npm run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000).
+
+### Environment variables
+
+Create a `.env.local` file at the project root before starting the dev server:
+
+```
+NEXT_PUBLIC_SUPABASE_URL=your_supabase_project_url
+NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=your_supabase_publishable_key
+```
+
+Both values are in your Supabase project dashboard under **Project Settings → API**. Without them, the contact form will show an error on submit.
 
 ## Scripts
 
@@ -53,6 +65,8 @@ Prefer editing data entries over hardcoding text in components. To add the resum
 
 The page renders in this order (nav order matches): **Hero → Projects → Experience → Certifications → About → Contact**.
 
+On desktop (≥ 1024px) navigation is a sticky sidebar. On mobile a hamburger button opens a full-screen overlay with the same links.
+
 ## Project Structure
 
 - `src/app/page.tsx` — single-page layout; composes sections and passes slices of `portfolioData`
@@ -61,6 +75,7 @@ The page renders in this order (nav order matches): **Hero → Projects → Expe
 - `src/components/ui/*` — shared primitives (`SectionHeader`, `Button`, `Card`, `Badge`)
 - `src/data/portfolio.ts` — canonical content model and types
 - `src/lib/icon-map.ts` — maps icon keys to Phosphor icons
+- `src/lib/supabase.ts` — browser Supabase client (used by `ContactSection`)
 - `docs/design-system/` — design system spec, tokens, and component reference
 - `docs/color_palet.txt` — palette reference (`src/app/globals.css` is the source of truth)
 - `docs/wireframe.txt` — initial layout wireframe reference

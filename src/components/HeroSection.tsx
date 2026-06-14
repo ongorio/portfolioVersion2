@@ -18,7 +18,7 @@ export function HeroSection({ name, title, valueProposition, skillGroups }: Hero
 
   return (
     <section id="top" className="section-shell">
-      <p className="section-kicker">PORTFOLIO · {new Date().getFullYear()}</p>
+      <p className="section-kicker">PORTFOLIO</p>
 
       <h1 className="mt-2 text-[clamp(3rem,6vw,5rem)] font-bold leading-tight tracking-tight text-surface">
         {first}{" "}

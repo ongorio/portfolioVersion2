@@ -9,6 +9,7 @@ type ButtonProps = {
   type?: "button" | "submit" | "reset";
   className?: string;
   target?: string;
+  disabled?: boolean;
   children: ReactNode;
 };
 
@@ -33,10 +34,11 @@ export function Button({
   onClick,
   type = "button",
   className = "",
+  disabled = false,
   children,
   target = "_self",
 }: ButtonProps) {
-  const classes = `${variant === "social" ? socialBase : base} ${variantClasses[variant]} ${className}`;
+  const classes = `${variant === "social" ? socialBase : base} ${variantClasses[variant]} ${className} disabled:opacity-50 disabled:cursor-not-allowed`;
 
   if (href) {
     return (
@@ -47,7 +49,7 @@ export function Button({
   }
 
   return (
-    <button type={type} onClick={onClick} className={classes}>
+    <button type={type} onClick={onClick} disabled={disabled} className={classes}>
       {children}
     </button>
   );
