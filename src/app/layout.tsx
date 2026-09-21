@@ -15,17 +15,23 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL(portfolioData.domain),
-  title: "Isaias Alvarez Vargas | Salesforce Developer",
-  description: "Personal portfolio of Isaias Alvarez Vargas, Salesforce Developer.",
+  title: "Isaias Alvarez Vargas | Software Developer",
+  description: "Personal portfolio of Isaias Alvarez Vargas, Software Developer.",
   openGraph: {
-    title: "Isaias Alvarez Vargas | Salesforce Developer",
-    description: "Personal portfolio of Isaias Alvarez Vargas, Salesforce Developer.",
-    siteName: "Isaias Alvarez Vargas | Salesforce Developer",
+    title: "Isaias Alvarez Vargas | Software Developer",
+    description: "Personal portfolio of Isaias Alvarez Vargas, Software Developer.",
+    siteName: "Isaias Alvarez Vargas | Software Developer",
     url: portfolioData.domain,
   },
   authors: [{ name: "Isaias Alvarez Vargas", url: "https://www.linkedin.com/in/isaias-alvarez-vargas-654935214/" }],
   creator: "Isaias Alvarez Vargas",
   publisher: "Isaias Alvarez Vargas",
+  icons: [
+    { rel: "icon", url: "/images/favicon/favicon-16.png", sizes: "16x16" },
+    { rel: "icon", url: "/images/favicon/favicon-32.png", sizes: "32x32" },
+    { rel: "icon", url: "/images/favicon/favicon-48.png", sizes: "48x48" },
+    { rel: "apple-touch-icon", url: "/images/favicon/favicon-512.png", sizes: "512x512" },
+  ],
 };
 
 export default function RootLayout({

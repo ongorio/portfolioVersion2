@@ -117,9 +117,15 @@ export const portfolioData: PortfolioData = {
   experiences: [
     {
       company: "ANM",
+      title: "Software Developer",
+      start: "Sep 2026",
+      end: "Present",
+    },
+    {
+      company: "ANM",
       title: "Salesforce Developer",
       start: "Nov 2025",
-      end: "Present",
+      end: "Sep 2026",
     },
     {
       company: "Altur",
@@ -150,7 +156,7 @@ export const portfolioData: PortfolioData = {
       title: "Software Developer Intern",
       start: "Jun 2019",
       end: "Jan 2022",
-    },  
+    },
   ],
   projects: [
     {
